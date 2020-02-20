@@ -1,31 +1,29 @@
+import sum from 'ml-array-sum';
+import binarySearch from 'binary-search';
+
 /**
  * Mann-Whitney rank test on sets x1 and x2
  *
- * Parameters:
- * x1, x2 - 1D arrays
+ * https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
+ *
+ * @param {Array} [x1]
+ * @param {Array} [x2]
+ * @return {object}
  */
 
-export function UTest(x1, x2) {
-  var len_x1 = x1.length;
-  var len_x2 = x2.length;
+export function uTest(x1, x2) {
+  const concatArray = x1.concat(x2);
+  const sorted = concatArray.slice().sort((a, b) => b - a);
+  const ranks = concatArray.map(
+    (value) =>
+      binarySearch(sorted, value, function(element, needle) {
+        return needle - element;
+      }) + 1,
+  );
 
-  var con_array = x1.concat(x2);
-  var sorted = con_array.slice().sort(function(a, b) {
-    return b - a;
-  });
-  var ranks = con_array.slice().map(function(v) {
-    return sorted.indexOf(v) + 1;
-  });
+  const ranksX1 = ranks.slice(0, x1.length);
+  const u1 = sum(ranksX1);
 
-  var rank_x1 = ranks.slice(0, len_x1);
-  var u1 = rank_x1.reduce((a, b) => a + b, 0);
-  var u2 = ranks.reduce((a, b) => a + b, 0) - u1;
-
-  return [u1, u2];
+  const u2 = sum(ranks) - u1;
+  return { u1, u2 };
 }
-
-var array1 = [1, 3, 5];
-var array2 = [2, 4, 6];
-
-var r = UTest(array1, array2);
-console.log(r);

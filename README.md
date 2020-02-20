@@ -19,7 +19,15 @@ const result = library(args);
 // result is ...
 ```
 
+- https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
+- Kruskall-Wallis
+
+
 ## [API Documentation](https://cheminfo.github.io/statistics/)
+
+## Check the tests continuously
+
+`npx jest --watch`
 
 ## License
 
