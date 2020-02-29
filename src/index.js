@@ -11,6 +11,17 @@ import binarySearch from 'binary-search';
  * @return {object}
  */
 
+export function TieCorrection(rankValues) {
+  /** Needed for the U-Test and H-Test 
+   * IN: rankValues: 1D array of ranks  
+   * OUT: factor: correction factor
+   */
+  const sortedArr = rankValues.slice().sort((a, b) => b - a);
+  const nonNegative = [0, a.join("").localeCompare(b.join("")),0]
+  console.log
+  //const nonNegativeIdxs = 
+}
+
 export function uTest(x1, x2) {
   const concatArray = x1.concat(x2);
   const sorted = concatArray.slice().sort((a, b) => b - a);
@@ -25,5 +36,10 @@ export function uTest(x1, x2) {
   const u1 = sum(ranksX1);
 
   const u2 = sum(ranks) - u1;
-  return { u1, u2 };
+
+  /*T tie correct*/
+
+  const sd = Math.sqrt(T * n1 * n2 * (n1+n2+1) / 12.0)
+
+  return { min(u1, u2) };
 }
