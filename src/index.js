@@ -12,14 +12,20 @@ import binarySearch from 'binary-search';
  */
 
 export function TieCorrection(rankValues) {
-  /** Needed for the U-Test and H-Test 
-   * IN: rankValues: 1D array of ranks  
+  /** Needed for the U-Test and H-Test
+   * IN: rankValues: 1D array of ranks
    * OUT: factor: correction factor
    */
   const sortedArr = rankValues.slice().sort((a, b) => b - a);
-  const nonNegative = [0, a.join("").localeCompare(b.join("")),0]
-  console.log
-  //const nonNegativeIdxs = 
+  const leftArr = sortedArr.slice(1, test_array.length);
+  const rightArr = sortedArr.slice(0, test_array.length - 1);
+  const nonNegative = [0, leftArr.join('').localeCompare(rightArr.join('')), 0];
+  const nonNegativeIdxs = nonNegative
+    .map((a, i) => (a == 0 ? i : -1))
+    .filter((a) => a !== -1);
+  //const nonNegativeIdxs =
+
+  return Object;
 }
 
 export function uTest(x1, x2) {
@@ -39,7 +45,15 @@ export function uTest(x1, x2) {
 
   /*T tie correct*/
 
-  const sd = Math.sqrt(T * n1 * n2 * (n1+n2+1) / 12.0)
+  const sd = Math.sqrt((T * n1 * n2 * (n1 + n2 + 1)) / 12.0);
 
-  return { min(u1, u2) };
+  return { u1, u2 };
 }
+
+const test_array = [1, 2, 5, 6, 7];
+const test_array_2 = [0, -1, 0, 0];
+
+console.log(test_array.slice(1, test_array.length - 1));
+console.log(
+  test_array_2.map((a, i) => (a == 0 ? i : -1)).filter((a) => a !== -1),
+);
