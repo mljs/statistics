@@ -5,18 +5,18 @@ describe('uTest', () => {
     let array1 = [1, 3, 5];
     let array2 = [2, 4, 6];
 
-    let result = uTest(array1, array2);
+    let result = uTest(array1, array2, 'simple');
 
-    expect(result).toStrictEqual({ uStatistic: 3, pValue: 9 });
+    expect(result).toStrictEqual({ u1: 6, u2: 3 });
   });
 });
 
 describe('tie correction', () => {
   it('simple case with two ranks', () => {
-    let ranks = [[1, 2.5, 2.5, 4]];
+    let ranks = [[1, 3, 5, 2, 4, 6]];
 
     let result = TieCorrection(ranks);
 
-    expect(result).toStrictEqual(0.9);
+    expect(result).toStrictEqual(1);
   });
 });
