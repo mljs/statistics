@@ -1,4 +1,4 @@
-import { uTest } from '..';
+import { uTest, TieCorrection } from '..';
 
 describe('uTest', () => {
   it('simple case', () => {
@@ -7,6 +7,16 @@ describe('uTest', () => {
 
     let result = uTest(array1, array2);
 
-    expect(result).toStrictEqual({ u1: 12, u2: 9 });
+    expect(result).toStrictEqual({ uStatistic: 3, pValue: 9 });
+  });
+});
+
+describe('tie correction', () => {
+  it('simple case with two ranks', () => {
+    let ranks = [[1, 2.5, 2.5, 4]];
+
+    let result = TieCorrection(ranks);
+
+    expect(result).toStrictEqual(0.9);
   });
 });
