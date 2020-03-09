@@ -56,14 +56,14 @@ export function uTest(x1, x2, method) {
   );
   const n1 = x1.length;
   const n2 = x2.length;
-  const ranksX1 = ranks.slice(0, n1);
+  const ranksX1 = concatArray.slice(0, n1);
   const u1 = n1 * n2 + (n1 * (n1 + 1)) / 2 - sum(ranksX1);
   const u2 = n1 * n2 - u1;
   if (method == 'Simple') {
     return { u1, u2 };
   }
 
-  const T = TieCorrection(concatArray);
+  const T = TieCorrection(ranks);
   var sd = 0;
   if (T == 0) {
     console.log('The objects are identical');
@@ -75,5 +75,5 @@ export function uTest(x1, x2, method) {
   return { u1, u2, T, z };
 }
 
-//console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
-console.log(uTest([1, 3, 5], [2, 4, 6], 'Simple'));
+console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
+console.log(uTest([1, 3, 5], [2, 4, 6]));
