@@ -75,5 +75,5 @@ export function uTest(x1, x2, method) {
   return { u1, u2, T, z };
 }
 
-console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
-console.log(uTest([1, 3, 5], [2, 4, 6]));
+//console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
+console.log(uTest([1, 3, 5], [2, 4, 6], 'Simple'));
