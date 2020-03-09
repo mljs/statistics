@@ -30,6 +30,7 @@ export function TieCorrection(rankValues) {
       return num - nonNegativeIdxs.slice(0, nonNegativeIdxs.length - 1)[idx];
     });
   const sortedArrSize = sortedArr.length;
+  var tieCorr;
   if (sortedArrSize < 2) {
     tieCorr = 1;
   } else {
@@ -41,7 +42,10 @@ export function TieCorrection(rankValues) {
   return tieCorr;
 }
 
-export function uTest(x1, x2) {
+export function uTest(x1, x2, method) {
+  /** with default continuity correction
+   * Method One is used for small samples
+   */
   const concatArray = x1.concat(x2);
   const sorted = concatArray.slice().sort((a, b) => b - a);
   const ranks = concatArray.map(
@@ -53,24 +57,23 @@ export function uTest(x1, x2) {
 
   const ranksX1 = ranks.slice(0, x1.length);
   const u1 = sum(ranksX1);
-
   const u2 = sum(ranks) - u1;
+  if (method == 'Simple') {
+    return { u1, u2 };
+  }
 
-  /*T tie correct*/
+  const T = TieCorrection(ranks);
+  var sd = 0;
+  if (T == 0) {
+    console.log('The objects are identical');
+  } else {
+    sd = Math.sqrt(
+      (T * x1.length * x2.length * (x1.length + x2.length + 1)) / 12.0,
+    );
+  }
 
-  const sd = Math.sqrt((T * n1 * n2 * (n1 + n2 + 1)) / 12.0);
-
-  return { u1, u2 };
+  return { u1, u2, sd, ranks };
 }
 
-const test_array = [1, 2, 5, 6, 7];
-const test_array_2 = [0, -1, 0, 0, 2];
-
-console.log(test_array.slice(1, test_array.length - 1));
-console.log(
-  test_array_2.map((a, i) => (a == 0 ? i : -1)).filter((a) => a !== -1),
-);
-var t = test_array.map(function(num, idx) {
-  return num - test_array_2[idx];
-});
-console.log(t[0] > 1);
+console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
+console.log(uTest([1, 3, 5], [2, 4, 6], 'Simple'));
