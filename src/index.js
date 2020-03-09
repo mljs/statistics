@@ -17,10 +17,11 @@ export function TieCorrection(rankValues) {
    * IN: rankValues: 1D array of ranks
    * OUT: factor: correction factor
    */
-  const sortedArr = rankValues.slice().sort((a, b) => b - a);
-  if (sortedArr.length < 2) {
+  if (rankValues.length < 2) {
     return 1;
   }
+
+  const sortedArr = rankValues.slice().sort((a, b) => b - a);
   const leftArr = sortedArr.slice(1, sortedArr.length);
   const rightArr = sortedArr.slice(0, sortedArr.length - 1);
   const nonNegative = [0, leftArr.join('').localeCompare(rightArr.join('')), 0];
@@ -32,12 +33,12 @@ export function TieCorrection(rankValues) {
     .map(function(num, idx) {
       return num - nonNegativeIdxs.slice(0, nonNegativeIdxs.length - 1)[idx];
     });
-  const sortedArrSize = sortedArr.length;
-  const tieCorr =
+
+  return (
     1 -
     (Math.pow(diffCounter, 3) - diffCounter) /
-      (Math.pow(sortedArrSize, 3) - sortedArrSize);
-  return tieCorr;
+      (Math.pow(sortedArr.length, 3) - sortedArr.length)
+  );
 }
 
 export function uTest(x1, x2, method) {
