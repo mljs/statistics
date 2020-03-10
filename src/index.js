@@ -41,10 +41,11 @@ export function TieCorrection(rankValues) {
   );
 }
 
-export function uTest(x1, x2, method) {
+export function uTest(x1, x2, method, wilcoxon) {
   /** with default continuity correction (add later)
    * alternative is default: none (later can be added: two-sided, greater, less)
    * Method One is used for small samples
+   * if wicoxon is true return only rank sums
    */
   const concatArray = x1.concat(x2);
   const sorted = concatArray.slice().sort((a, b) => b - a);
@@ -56,8 +57,15 @@ export function uTest(x1, x2, method) {
   );
   const n1 = x1.length;
   const n2 = x2.length;
+  if (wilcoxon === true) {
+    return {
+      u1: sum(ranks.slice(0, n1)),
+      u2: sum(ranks) - sum(ranks.slice(0, n1)),
+    };
+  }
+
   const ranksX1 = concatArray.slice(0, n1);
-  const u1 = n1 * n2 + (n1 * (n1 + 1)) / 2 - sum(ranksX1);
+  const u1 = sum(ranksX1) - (n1 * (n1 + 1)) / 2;
   const u2 = n1 * n2 - u1;
   if (method === 'Simple') {
     return { u1, u2 };
@@ -76,4 +84,4 @@ export function uTest(x1, x2, method) {
 }
 
 //console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
-//console.log(uTest([1, 3, 5], [2, 4, 6]));
+console.log(uTest([1, 3, 5], [2, 4, 6], 'Simple', true));
