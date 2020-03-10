@@ -26,9 +26,9 @@ export function TieCorrection(rankValues) {
   const rightArr = sortedArr.slice(0, sortedArr.length - 1);
   const nonNegative = [0, leftArr.join('').localeCompare(rightArr.join('')), 0];
   const nonNegativeIdxs = nonNegative
-    .map((a, i) => (a == 0 ? i : -1))
+    .map((a, i) => (a === 0 ? i : -1))
     .filter((a) => a !== -1);
-  var diffCounter = nonNegativeIdxs
+  let diffCounter = nonNegativeIdxs
     .slice(1, nonNegativeIdxs.length)
     .map(function(num, idx) {
       return num - nonNegativeIdxs.slice(0, nonNegativeIdxs.length - 1)[idx];
@@ -59,21 +59,21 @@ export function uTest(x1, x2, method) {
   const ranksX1 = concatArray.slice(0, n1);
   const u1 = n1 * n2 + (n1 * (n1 + 1)) / 2 - sum(ranksX1);
   const u2 = n1 * n2 - u1;
-  if (method == 'Simple') {
+  if (method === 'Simple') {
     return { u1, u2 };
   }
 
   const T = TieCorrection(ranks);
-  var sd = 0;
-  if (T == 0) {
-    console.log('The objects are identical');
-  } else {
-    sd = Math.sqrt((T * n1 * n2 * (n1 + n2 + 1)) / 12.0);
-  }
+  let sd = 0;
+  //if (T == 0) {
+  //  console.log('The objects are identical');
+  //} else {
+  sd = Math.sqrt((T * n1 * n2 * (n1 + n2 + 1)) / 12.0);
+  //}
   const mRank = 0.5 + (n1 * n2) / 2;
   const z = (Math.max(u1, u2) - mRank) / sd;
   return { u1, u2, T, z };
 }
 
-console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
-console.log(uTest([1, 3, 5], [2, 4, 6]));
+//console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
+//console.log(uTest([1, 3, 5], [2, 4, 6]));
