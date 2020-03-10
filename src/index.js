@@ -57,6 +57,9 @@ export function uTest(x1, x2, method, wilcoxon) {
   );
   const n1 = x1.length;
   const n2 = x2.length;
+  const N = n1 * n2;
+
+  // wilcoxon output
   if (wilcoxon === true) {
     return {
       u1: sum(ranks.slice(0, n1)),
@@ -64,24 +67,39 @@ export function uTest(x1, x2, method, wilcoxon) {
     };
   }
 
+  // simple U-test
   const ranksX1 = concatArray.slice(0, n1);
   const u1 = sum(ranksX1) - (n1 * (n1 + 1)) / 2;
-  const u2 = n1 * n2 - u1;
+  const u2 = N - u1;
   if (method === 'Simple') {
     return { u1, u2 };
   }
 
+  // Standardized Value
   const T = TieCorrection(ranks);
   let sd = 0;
   //if (T == 0) {
   //  console.log('The objects are identical');
   //} else {
-  sd = Math.sqrt((T * n1 * n2 * (n1 + n2 + 1)) / 12.0);
+  // Exchange with error logging
+  sd = Math.sqrt((T * N * (n1 + n2 + 1)) / 12.0);
   //}
-  const mRank = 0.5 + (n1 * n2) / 2;
+  const mRank = 0.5 + N / 2;
   const z = (Math.max(u1, u2) - mRank) / sd;
-  return { u1, u2, T, z };
+
+  // Effect strength
+  const r = z / Math.sqrt(n1 + n2); // effect strength
+
+  // Rank-biserial correlation
+  const rB = 1 - (2 * u2) / N;
+  return {
+    u1: u1,
+    u2: u2,
+    standardizedValue: z,
+    effectStrength: r,
+    RankBiserial: rB,
+  };
 }
 
 //console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
-console.log(uTest([1, 3, 5], [2, 4, 6], 'Simple', true));
+console.log(uTest([1, 3, 5], [2, 4, 6]));
