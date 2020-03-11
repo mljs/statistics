@@ -12,6 +12,32 @@ import binarySearch from 'binary-search';
  * @return {object}
  */
 
+export function Ranking(x1, x2) {
+  /* returns ranking of two arrays
+   */
+
+  const concatArray = x1.concat(x2);
+  const sorted = concatArray.slice().sort((a, b) => b - a);
+  const ranks = concatArray.map(
+    (value) =>
+      binarySearch(sorted, value, function(element, needle) {
+        return needle - element;
+      }) + 1,
+  );
+
+  return ranks;
+}
+
+export function Wilcoxon(x1, x2) {
+  /* performes Wilcoxon test*/
+  ranks = Ranking(x1, x2);
+  n1 = x1.length;
+  return {
+    u1: sum(ranks.slice(0, n1)),
+    u2: sum(ranks) - sum(ranks.slice(0, n1)),
+  };
+}
+
 export function TieCorrection(rankValues) {
   /** Needed for the U-Test and H-Test
    * IN: rankValues: 1D array of ranks
@@ -41,65 +67,49 @@ export function TieCorrection(rankValues) {
   );
 }
 
-export function uTest(x1, x2, method, wilcoxon) {
+export function uTest(x1, x2, method) {
   /** with default continuity correction (add later)
    * alternative is default: none (later can be added: two-sided, greater, less)
-   * Method One is used for small samples
+   * Method "Simple" is used for small samples
    * if wicoxon is true return only rank sums
    */
-  const concatArray = x1.concat(x2);
-  const sorted = concatArray.slice().sort((a, b) => b - a);
-  const ranks = concatArray.map(
-    (value) =>
-      binarySearch(sorted, value, function(element, needle) {
-        return needle - element;
-      }) + 1,
-  );
+  const ranks = Ranking(x1, x2);
   const n1 = x1.length;
   const n2 = x2.length;
-  const N = n1 * n2;
-
-  // wilcoxon output
-  if (wilcoxon === true) {
-    return {
-      u1: sum(ranks.slice(0, n1)),
-      u2: sum(ranks) - sum(ranks.slice(0, n1)),
-    };
-  }
+  const U = n1 * n2;
 
   // simple U-test
-  const ranksX1 = concatArray.slice(0, n1);
-  const u1 = sum(ranksX1) - (n1 * (n1 + 1)) / 2;
-  const u2 = N - u1;
+  const u1 = sum(x1) - (n1 * (n1 + 1)) / 2;
+  const u2 = U - u1;
   if (method === 'Simple') {
     return { u1, u2 };
   }
 
-  // Standardized Value
+  // Rank-biserial correlation
+  const rB = 1 - (2 * u2) / U;
+
+  // Stabdard Deviation and Absolute Value
   const T = TieCorrection(ranks);
-  let sd = 0;
-  //if (T == 0) {
-  //  console.log('The objects are identical');
-  //} else {
-  // Exchange with error logging
-  sd = Math.sqrt((T * N * (n1 + n2 + 1)) / 12.0);
-  //}
-  const mRank = 0.5 + N / 2;
+  let sd = Math.sqrt((T * U * (n1 + n2 + 1)) / 12.0);
+  const mRank = 0.5 + U / 2;
   const z = (Math.max(u1, u2) - mRank) / sd;
 
   // Effect strength
   const r = z / Math.sqrt(n1 + n2); // effect strength
 
-  // Rank-biserial correlation
-  const rB = 1 - (2 * u2) / N;
   return {
     u1: u1,
     u2: u2,
-    standardizedValue: z,
+    standardDeviation: sd,
     effectStrength: r,
-    RankBiserial: rB,
+    rankBiserial: rB,
+    absolutValue: z,
   };
 }
 
 //console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
 console.log(uTest([1, 3, 5], [2, 4, 6]));
+
+export function hTest() {
+  return Object;
+}
