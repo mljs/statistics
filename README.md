@@ -18,8 +18,11 @@ import library from 'statistics';
 const result = library(args);
 // result is ...
 ```
-
+U-Test:
 - https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
+- https://psych.unl.edu/psycrs/handcomp/hcmann.PDF
+
+H-Test
 - Kruskall-Wallis
 
 
