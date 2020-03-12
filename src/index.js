@@ -1,6 +1,5 @@
 import sum from 'ml-array-sum';
 import binarySearch from 'binary-search';
-//import { Matrix } from 'ml-matrix';
 
 /**
  * Mann-Whitney rank test on sets x1 and x2
