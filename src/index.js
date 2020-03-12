@@ -11,11 +11,14 @@ import binarySearch from 'binary-search';
  * @return {object}
  */
 
-export function Ranking(x1, x2) {
-  /* returns ranking of two arrays
+export function Ranking() {
+  /* returns ranking of argument arrays
    */
-
-  const concatArray = x1.concat(x2);
+  const args = Array.from(arguments);
+  let concatArray = [];
+  args.forEach((item) => {
+    concatArray = concatArray.concat(item);
+  });
   const sorted = concatArray.slice().sort((a, b) => b - a);
   const ranks = concatArray.map(
     (value) =>
@@ -109,6 +112,13 @@ export function uTest(x1, x2, method) {
 //console.log(TieCorrection([6, 4, 2, 5, 3, 1]));
 console.log(uTest([1, 3, 5], [2, 4, 6]));
 
-export function hTest() {
-  return Object;
+export function KruskalWallis() {
+  const args = Array.from(arguments);
+  let new_arr = [];
+  args.forEach((item) => {
+    new_arr = new_arr.concat(item);
+  });
+  return new_arr;
 }
+
+console.log(KruskalWallis([1, 4], [4, 9, 9], [1, 4, 5]));
