@@ -6,9 +6,6 @@ import binarySearch from 'binary-search';
  *
  * https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
  *
- * @param {Array} [x1]
- * @param {Array} [x2]
- * @return {object}
  */
 
 export function Ranking() {
@@ -19,6 +16,7 @@ export function Ranking() {
   args.forEach((item) => {
     concatArray = concatArray.concat(item);
   });
+
   const sorted = concatArray.slice().sort((a, b) => b - a);
   const ranks = concatArray.map(
     (value) =>
@@ -30,14 +28,17 @@ export function Ranking() {
   return ranks;
 }
 
-export function Wilcoxon(x1, x2) {
+export function Wilcoxon() {
   /* performes Wilcoxon test*/
-  ranks = Ranking(x1, x2);
-  n1 = x1.length;
-  return {
-    u1: sum(ranks.slice(0, n1)),
-    u2: sum(ranks) - sum(ranks.slice(0, n1)),
-  };
+  const args = Array.from(arguments);
+  const ranks = Ranking.apply(null, arguments);
+  let start_length = 0;
+  const sums = args.map((item) => {
+    start_length = start_length + item.length;
+    let uu = sum(ranks.slice(start_length - item.length, start_length));
+    return uu;
+  });
+  return sums;
 }
 
 export function TieCorrection(rankValues) {
@@ -102,7 +103,6 @@ export function uTest(x1, x2, method) {
   return {
     u1: u1,
     u2: u2,
-    standardDeviation: sd,
     effectStrength: r,
     rankBiserial: rB,
     absolutValue: z,
@@ -113,12 +113,16 @@ export function uTest(x1, x2, method) {
 console.log(uTest([1, 3, 5], [2, 4, 6]));
 
 export function KruskalWallis() {
-  const args = Array.from(arguments);
-  let new_arr = [];
-  args.forEach((item) => {
-    new_arr = new_arr.concat(item);
-  });
-  return new_arr;
+  /*
+  Kruskal Wallis test
+  */
+  const ranks = Ranking(arguments);
+  const T = TieCorrection(ranks);
+
+  return Object;
 }
 
-console.log(KruskalWallis([1, 4], [4, 9, 9], [1, 4, 5]));
+const tA1 = [1, 2, 3];
+const tA2 = [4, 5];
+const tA3 = [6, 7, 8, 9, 10];
+console.log(Wilcoxon(tA1, tA2, tA3));
