@@ -116,13 +116,21 @@ export function KruskalWallis() {
   /*
   Kruskal Wallis test
   */
-  const ranks = Ranking(arguments);
+  const args = Array.from(arguments);
+  const ranks = Ranking.apply(null, arguments);
   const T = TieCorrection(ranks);
+  const sbnn = sum(args.map((item) => sum(item) / item.length));
+  const N = sum(args.map((item) => item.length));
+  const H = (12 / (N * (N + 1))) * sbnn - 3 * (N + 1);
+  const df = args.length - 1;
+  const Ht = H / T;
 
-  return Object;
+  return { H, df, Ht, sbnn };
 }
 
 const tA1 = [1, 2, 3];
-const tA2 = [4, 5];
+const tA2 = [4, 5, 6];
 const tA3 = [6, 7, 8, 9, 10];
-console.log(Wilcoxon(tA1, tA2, tA3));
+//console.log(Wilcoxon(tA1, tA2, tA3));
+
+console.log(KruskalWallis(tA1, tA2, tA3));
