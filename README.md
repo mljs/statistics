@@ -23,7 +23,7 @@ U-Test:
 - https://psych.unl.edu/psycrs/handcomp/hcmann.PDF
 
 H-Test
-- Kruskall-Wallis
+- https://fr.wikipedia.org/wiki/Test_de_Kruskal-Wallis
 
 
 ## [API Documentation](https://cheminfo.github.io/statistics/)
