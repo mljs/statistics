@@ -8,12 +8,12 @@
 
 ## Installation
 
-`$ npm i statistics`
+`$ npm i ml-statistics`
 
 ## Usage
 
 ```js
-import library from 'statistics';
+import library from 'ml-statistics';
 
 const result = library(args);
 // result is ...

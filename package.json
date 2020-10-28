@@ -1,5 +1,5 @@
 {
-  "name": "statistics",
+  "name": "ml-statistics",
   "version": "0.0.0",
   "description": "",
   "main": "lib/index.js",
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheminfo/statistics.git"
+    "url": "git+https://github.com/mljs/statistics.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cheminfo/statistics/issues"
+    "url": "https://github.com/mljs/statistics/issues"
   },
-  "homepage": "https://github.com/cheminfo/statistics#readme",
+  "homepage": "https://github.com/mljs/statistics#readme",
   "jest": {
     "testEnvironment": "node"
   },
@@ -38,20 +38,21 @@
     "trailingComma": "all"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
-    "eslint": "^6.8.0",
-    "eslint-config-cheminfo": "^2.0.4",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jest": "^23.3.0",
-    "eslint-plugin-prettier": "^3.1.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+    "eslint": "^7.12.1",
+    "eslint-config-cheminfo": "^5.2.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "esm": "^3.2.25",
-    "jest": "^24.9.0",
-    "prettier": "^1.19.1",
-    "rollup": "^1.29.0"
+    "jest": "^26.6.1",
+    "prettier": "^2.1.2",
+    "rollup": "^2.32.1"
   },
   "dependencies": {
     "binary-search": "^1.3.6",
-    "ml-array-sum": "^1.1.2",
-    "ml-matrix": "^6.4.1"
+    "is-any-array": "^0.1.0",
+    "ml-array-sum": "^1.1.4",
+    "ml-matrix": "^6.5.3"
   }
 }
