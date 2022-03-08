@@ -7,7 +7,7 @@ export function kruskalWallis(...args) {
   /*
   Kruskal Wallis test
   */
-  const ranks = ranking(args);
+  const ranks = ranking(...args);
   const T = tieCorrection(ranks);
   const sbnn = sum(args.map((item) => sum(item) / item.length));
   const N = sum(args.map((item) => item.length));
