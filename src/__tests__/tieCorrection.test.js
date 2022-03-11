@@ -17,6 +17,6 @@ describe('tie correction', () => {
     let ranks = [];
     expect(() => {
       tieCorrection(ranks);
-    }).toThrow('aa');
+    }).toThrow('tieCorrection: array length should be greater than 0');
   });
 });
