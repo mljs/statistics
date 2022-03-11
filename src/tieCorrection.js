@@ -1,4 +1,4 @@
-import isAnyArray from 'is-any-array';
+import { isAnyArray } from 'is-any-array';
 
 /**
  * Needed for the U-Test and H-Test
@@ -22,7 +22,7 @@ export function tieCorrection(rankValues) {
     .filter((a) => a !== -1);
   let diffCounter = nonNegativeIdxs
     .slice(1, nonNegativeIdxs.length)
-    .map(function (num, idx) {
+    .map((num, idx) => {
       return num - nonNegativeIdxs.slice(0, nonNegativeIdxs.length - 1)[idx];
     });
 

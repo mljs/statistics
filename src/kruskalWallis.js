@@ -3,12 +3,11 @@ import sum from 'ml-array-sum';
 import { ranking } from './ranking';
 import { tieCorrection } from './tieCorrection';
 
-export function kruskalWallis() {
+export function kruskalWallis(...args) {
   /*
   Kruskal Wallis test
   */
-  const args = Array.from(arguments);
-  const ranks = ranking.apply(null, arguments);
+  const ranks = ranking(...args);
   const T = tieCorrection(ranks);
   const sbnn = sum(args.map((item) => sum(item) / item.length));
   const N = sum(args.map((item) => item.length));

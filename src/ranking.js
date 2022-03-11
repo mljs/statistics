@@ -10,8 +10,7 @@ import binarySearch from 'binary-search';
  * returns ranking of argument arrays
  */
 
-export function ranking() {
-  const args = Array.from(arguments);
+export function ranking(...args) {
   let concatArray = [];
   args.forEach((item) => {
     concatArray = concatArray.concat(item);
@@ -20,7 +19,7 @@ export function ranking() {
   const sorted = concatArray.slice().sort((a, b) => b - a);
   const ranks = concatArray.map(
     (value) =>
-      binarySearch(sorted, value, function (element, needle) {
+      binarySearch(sorted, value, (element, needle) => {
         return needle - element;
       }) + 1,
   );
